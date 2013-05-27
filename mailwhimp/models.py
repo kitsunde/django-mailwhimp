@@ -40,6 +40,7 @@ class List(models.Model):
     default_from_subject = models.CharField(max_length=100)
 
     def create_campaign(self, content, options=None, campaign_type='regular'):
+        """ Setup a remote campaign, returns a Campaign model. """
         if not options:
             options = {}
         if not content:
@@ -49,7 +50,12 @@ class List(models.Model):
                                                type=campaign_type,
                                                options=send_options,
                                                content=content)
+        # We could skip loading the campaign from mailchimp since we should have
+        # all the data. However it's easier to just push data to mailchimp and
+        # then load back how mailchimp sees it, rather than attempting to
+        # match it on our end by parsing send_options.
         self.application.load_campaigns(filters={'campaign_id': campaign_id})
+        return Campaign.objects.get(pk=campaign_id)
 
     def __unicode__(self):
         return self.name
