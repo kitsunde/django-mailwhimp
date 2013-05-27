@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, IntegrityError
 from mailsnake import MailSnake
 
 
@@ -20,12 +20,15 @@ class Application(models.Model):
         for campaign_data in response['data']:
             # @todo could do a single bulk create if we filter out existing
             # ones.
-            Campaign.objects.create(
-                id=campaign_data['id'],
-                title=campaign_data['title'],
-                created_time=campaign_data['created_time'],
-                send_time=campaign_data['send_time']
-            )
+            try:
+                Campaign.objects.create(
+                    id=campaign_data['id'],
+                    title=campaign_data['title'],
+                    created_time=campaign_data['created_time'],
+                    send_time=campaign_data['send_time']
+                )
+            except IntegrityError:
+                pass
 
     def __unicode__(self):
         return self.label
