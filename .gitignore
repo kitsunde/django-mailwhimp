@@ -1,0 +1,8 @@
+# C Pythong
+*.pyc
+
+# PyCharm
+.idea
+
+#egg
+*.egg-info
