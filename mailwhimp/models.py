@@ -40,7 +40,7 @@ class List(models.Model):
     name = models.CharField(max_length=100)
     default_from_name = models.CharField(max_length=100)
     default_from_email = models.EmailField()
-    default_from_subject = models.CharField(max_length=100)
+    default_subject = models.CharField(max_length=100)
 
     def create_campaign(self, content, options=None, campaign_type='regular'):
         """ Setup a remote campaign, returns a Campaign model. """
