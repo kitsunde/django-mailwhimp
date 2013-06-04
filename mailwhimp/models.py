@@ -30,6 +30,21 @@ class Application(models.Model):
             except IntegrityError:
                 pass
 
+    def load_lists(self):
+        response = self.request('lists')
+        for mail_list in response['data']:
+            try:
+                self.list_set.create(
+                    id=mail_list['id'],
+                    name=mail_list['name'],
+                    default_from_name=mail_list['default_from_name'],
+                    default_from_email=mail_list['default_from_email'],
+                    default_subject=mail_list['default_subject'],
+                )
+            except IntegrityError:
+                pass
+
+
     def __unicode__(self):
         return self.label
 
