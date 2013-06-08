@@ -10,6 +10,16 @@ class ApplicationAdmin(admin.ModelAdmin):
             application.load_lists()
 
 
+class CampaignAdmin(admin.ModelAdmin):
+    list_display = ('title', 'create_time', 'list', 'send_time')
+
+    actions = ['send_test']
+
+    def send_test(self, request, queryset):
+        for campaign in queryset.all():
+            campaign.test_send([request.user.email])
+
+
 admin.site.register(Application, ApplicationAdmin)
 admin.site.register(List)
-admin.site.register(Campaign)
+admin.site.register(Campaign, CampaignAdmin)
