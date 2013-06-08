@@ -59,8 +59,10 @@ class List(models.Model):
 
     def create_campaign(self, content, options=None, campaign_type='regular'):
         """ Setup a remote campaign, returns a Campaign model. """
-        if not options:
-            options = {}
+        options = dict({'subject': self.default_subject,
+                        'from_email': self.default_from_email,
+                        'from_name': self.default_from_name}, **(options or {}))
+
         if not content:
             raise ValueError
         send_options = dict({'list_id': self.pk}, **options)
