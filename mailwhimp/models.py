@@ -82,14 +82,17 @@ class List(models.Model):
 
 
 class Campaign(models.Model):
-    application = models.ForeignKey(Application)
+    list = models.ForeignKey(List)
     id = models.CharField(max_length=30, primary_key=True)
     title = models.CharField(max_length=200)
     create_time = models.DateTimeField()
     send_time = models.DateTimeField(blank=True, null=True)
 
-    def test_send(self):
-        self.application.request('campaignSend')
+    def test_send(self, emails):
+        application = self.list.application
+        print application.request('campaignSendTest',
+                                  cid=self.pk,
+                                  test_emails=emails)
 
     def __unicode__(self):
         return self.title
