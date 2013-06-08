@@ -22,9 +22,10 @@ class Application(models.Model):
             # ones.
             try:
                 Campaign.objects.create(
+                    list_id=campaign_data['list_id'],
                     id=campaign_data['id'],
                     title=campaign_data['title'],
-                    created_time=campaign_data['created_time'],
+                    create_time=campaign_data['create_time'],
                     send_time=campaign_data['send_time']
                 )
             except IntegrityError:
