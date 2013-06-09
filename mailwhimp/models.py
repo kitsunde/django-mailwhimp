@@ -58,6 +58,10 @@ class List(models.Model):
     default_from_email = models.EmailField()
     default_subject = models.CharField(max_length=100)
 
+    def load_campaigns(self, filters=None):
+        filters = dict((filters or {}), list_id= self.id)
+        self.application.load_campaigns(filters)
+
     def create_campaign(self, content, options=None, campaign_type='regular'):
         """ Setup a remote campaign, returns a Campaign model. """
         options = dict({'subject': self.default_subject,

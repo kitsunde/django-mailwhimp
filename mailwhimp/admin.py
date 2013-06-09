@@ -10,6 +10,14 @@ class ApplicationAdmin(admin.ModelAdmin):
             application.load_lists()
 
 
+class ListAdmin(admin.ModelAdmin):
+    actions = ['load_campaigns']
+
+    def load_campaigns(self, request, queryset):
+        for mailchimp_list in queryset.all():
+            mailchimp_list.load_campaigns()
+
+
 class CampaignAdmin(admin.ModelAdmin):
     list_display = ('title', 'create_time', 'list', 'send_time')
 
@@ -21,5 +29,5 @@ class CampaignAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Application, ApplicationAdmin)
-admin.site.register(List)
+admin.site.register(List, ListAdmin)
 admin.site.register(Campaign, CampaignAdmin)
