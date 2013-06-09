@@ -62,6 +62,19 @@ class List(models.Model):
         filters = dict((filters or {}), list_id= self.id)
         self.application.load_campaigns(filters)
 
+    def subscribe(self, email, merge_vars=None, email_type='html',
+                  double_optin=True, update_existing=False,
+                  replace_interests=True, send_welcome=False):
+        self.application.request('listSubscribe',
+                                 email_address=email,
+                                 id=self.pk,
+                                 merge_vars=merge_vars,
+                                 email_type=email_type,
+                                 double_optin=double_optin,
+                                 update_existing=update_existing,
+                                 replace_interests=replace_interests,
+                                 send_welcome=send_welcome)
+
     def create_campaign(self, content, options=None, campaign_type='regular'):
         """ Setup a remote campaign, returns a Campaign model. """
         options = dict({'subject': self.default_subject,
