@@ -13,7 +13,7 @@ class Migration(SchemaMigration):
 
         # Adding field 'Campaign.list'
         db.add_column(u'mailwhimp_campaign', 'list',
-                      self.gf('django.db.models.fields.related.ForeignKey')(default=None, to=orm['mailwhimp.List']),
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=0, to=orm['mailwhimp.List']),
                       keep_default=False)
 
 
