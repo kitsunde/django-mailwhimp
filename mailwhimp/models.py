@@ -108,9 +108,13 @@ class Campaign(models.Model):
 
     def test_send(self, emails):
         application = self.list.application
-        print application.request('campaignSendTest',
-                                  cid=self.pk,
-                                  test_emails=emails)
+        application.request('campaignSendTest',
+                            cid=self.pk,
+                            test_emails=emails)
+
+    def send(self):
+        application = self.list.application
+        application.request('campaignSendNow', cid=self.pk)
 
     def __unicode__(self):
         return self.title
