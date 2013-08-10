@@ -19,7 +19,8 @@ setup(
     packages=find_packages(exclude=("tests",)),
     zip_safe=False,
     install_requires=[
-        'mailsnake'
+        'mailsnake',
+        'django'
     ],
     test_suite='runtests.runtests',
     include_package_data=True,

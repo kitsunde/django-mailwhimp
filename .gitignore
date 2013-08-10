@@ -1,8 +1,4 @@
-# C Pythong
+*.egg-info/
 *.pyc
-
-# PyCharm
-.idea
-
-#egg
-*.egg-info
+dist/
+docs/_build/
